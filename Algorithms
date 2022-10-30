@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void swap(int *a, int *b) {
+  int t = *a;
+  *a = *b;
+  *b = t;
+}
+
+void printArray(int ar[], int s) {
+  int i;
+  for (i = 0; i < s; i++)
+    cout << ar[i] << " ";
+  cout << endl;
+}
+
+int part(int ar[], int l, int h) {
+
+  int pivot = ar[h];
+
+  int i = (l - 1);
+
+  for (int j = l; j < h; j++){
+    if (ar[j] <= pivot){
+      i++;
+      swap(&ar[i], &ar[j]);
+    }
+  }
+
+  swap(&ar[i + 1], &ar[h]);
+
+  return (i + 1);
+}
+
+void quickSort(int ar[], int l, int h) {
+  if (l < h) {
+    int pi = part(ar, l, h);
+    quickSort(ar, l, pi - 1);
+    quickSort(ar, pi + 1, h);
+  }
+}
+
+
+int main() {
+  int data[] = {11,3,5,6,12,15,4,31,34};
+  int n = sizeof(data) / sizeof(data[0]);
+
+  cout << "Unsorted Array: \n";
+  printArray(data, n);
+
+  quickSort(data, 0, n - 1);
+
+  cout << "Sorted array in ascending order: \n";
+  printArray(data, n);
+}
