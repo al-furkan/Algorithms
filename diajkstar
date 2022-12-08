@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>gp[100050],weight[100050];
+//vector<pair<int,int>>gp[100050];
+
+int main()
+{
+    priority_queue<pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > pq;
+    long long int dist[100050];
+    int parent[100050];
+
+    int n, e;
+    scanf("%d%d",&n,&e);
+
+    for(int i=0;i<=n;i++){
+        dist[i] = 1e18;
+        parent[i] = -1;
+        }
+    printf("%lld",dist[0]);
+
+    for(int i=0;i<e;i++)
+    {
+        int u,v,w;
+        scanf("%d%d%d",&u,&v,&w);
+        gp[u].push_back(v);
+        gp[v].push_back(u);
+
+        weight[u].push_back(w);
+        weight[v].push_back(w);
+    }
+    dist[1] = 0;
+    pq.push(make_pair(dist[1],1));
+
+    while(!pq.empty()){
+        int weightFromStart = pq.top().first;
+        int u = pq.top().second;
+
+        pq.pop();
+
+        for(int i=0;i<gp[u].size();i++)
+        {
+            int v = gp[u][i];
+            int weight_u_2_v = weight[u][i];
+
+            if(dist[v] > dist[u] + weight_u_2_v){
+                dist[v] = dist[u] + weight_u_2_v;
+                parent[v] = u;
+                //printf("node = %d parent = %d\n", v, parent[v]);
+                pq.push(make_pair(dist[v], v));
+            }
+        }
+        printf("inside dijkstra\n");
+    }
+
+    for(int i=1;i<=n;i++)
+        printf("node = %d dist = %lld parent = %d\n",i, dist[i], parent[i]);
+
+
+    return 0;
+}
