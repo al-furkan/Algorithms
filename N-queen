@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+using namespace std;
+int cnt=0;
+int a[1000];
+int place(int pos){
+int i;
+for(i=1;i<pos;i++){
+    if((a[i]==a[pos])||((abs(a[i]-a[pos])==abs(i-pos)))){
+        return 0;
+    }
+}
+return 1;
+}
+void print(int n){
+int i,j;
+cnt++;
+cout<<"solution or queue"<<cnt<<endl;
+for(i=1;i<=n;i++){
+    for(j=1;j<=n;j++){
+        if(a[i]==j){
+            cout<<"Q\t";
+        }
+        else{
+            cout<<"*\t";
+        }
+    }
+    cout<<endl;
+}
+
+
+}
+void queen(int n)
+{
+    int x=1;
+    a[x]=0;
+    while(x!=0)
+    {
+        do
+        {
+            a[x]++;
+        }while((a[x]<=n)&&!place(x));
+        if(a[x]<=n)
+        {
+            if(x==n)
+            {
+                print(n);
+            }
+            else
+            {
+                x++;
+                a[x]=0;
+            }
+        }
+        else{
+            x--;
+        }
+    }
+
+
+}
+
+//main function work
+int main()
+{
+    int n;
+    cout<<"Enter Queen number : "<<endl;
+    cin>>n;
+    queen(n);
+    cout<< "Total solutions :- "<<cnt;
+}
