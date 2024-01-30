@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>v[100000];
+bool vis[100000];
+int lebel[10000];
+void Bfs(int src){
+queue<int>q;
+q.push(src);
+vis[src]=1;
+lebel[src]=0;
+while(!q.empty()){
+  int p= q.front();
+  q.pop();
+  for(int child: v[p]){
+    if(vis[child]==0){
+       q.push(child);
+       vis[child]=1;
+       lebel[child]=lebel[p]+1;
+
+    }
+  }
+}
+
+}
+
+
+int main(){
+int n,e;
+cin>>n>>e;
+while(e--){
+    int a,b;
+    cin>>a>>b;
+    v[a].push_back(b);
+    v[b].push_back(a);
+}
+int src;
+cin>>src;
+memset(vis, false,sizeof(vis));
+memset(lebel,-1,sizeof(lebel));
+Bfs(src);
+for(int i=0;i<n;i++){
+    cout<<i<<"  "<<lebel[i]<<endl;
+}
+return 0;
+}
