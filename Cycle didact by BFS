@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int N=1e5+5;
+bool vis[N];
+vector<int> adj[N];
+int par[N];
+bool ans;
+void bfs(int src)
+{
+    queue<int>q;
+    q.push(src);
+    vis[src]=true;
+    while(!q.empty())
+    {
+        int p=q.front();
+        q.pop();
+        for(ch:adj[p]){
+              if(vis[ch]&&par[p]!=ch){
+                ans=true;
+              }
+
+
+            if(!vis[ch]){
+                vis[ch]=true;
+                par[ch]=p;
+                q.push(ch);
+
+            }
+        }
+
+
+
+
+    }
+}
+
+int main()
+{
+    int n,e;
+    cin>>n>>e;
+    while(e--)
+    {
+        int a,b;
+        cin>>a>>b;
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+    ans=false;
+    memset(vis,false,sizeof(vis));
+    memset(par,false,sizeof(par));
+    for(int i=0; i<n; i++)
+    {
+        if(!vis[i])
+        {
+            bfs(i);
+        }
+    }
+    if(ans){
+        cout<<"Cycle"<<endl;
+    }
+    else{
+        cout<<"Not Cycle"<<endl;
+    }
+
+    return 0;
+}
