@@ -14,7 +14,7 @@ void bfs(int src)
     {
         int p=q.front();
         q.pop();
-        for(ch:adj[p]){
+        for(int ch:adj[p]){
               if(vis[ch]&&par[p]!=ch){
                 ans=true;
               }
