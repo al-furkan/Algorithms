@@ -15,8 +15,9 @@ void dfs(int src)
     }
 
     if(!vis[ch]){
+        par[ch]=src;
         dfs(ch);
-   par[ch]=src;
+   
     }
    }
 
