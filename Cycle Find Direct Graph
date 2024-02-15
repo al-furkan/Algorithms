@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int N= 1e+5;
+vector<int>v[N];
+bool vis[N];
+bool p[N];
+bool ans;
+void dfs(int s){
+vis[s]=true;
+p[s]=true;
+for(int c: v[s]){
+    if(p[c]){
+        ans=true;
+    }
+    if(!vis[c]){
+        dfs(c);
+    }
+}
+p[s]=false;
+
+}
+
+
+
+int main(){
+
+int n,e ;
+cin>>n>>e;
+while(e--){
+    int a,b;
+    cin>>a>>b;
+   v[a].push_back(b);
+}
+memset(vis,false,sizeof(vis));
+memset(p,false,sizeof(p));
+ans=false;
+for(int i=0;i<n;i++){
+    if(!vis[i]){
+        dfs(i);
+    }
+}
+if(ans){
+    cout<<"Cycle";
+}
+else{
+    cout<<"not Cycle";
+}
+}
