@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 1e5 + 5;
+vector<pair<int, int>> v[N];
+int dis[N];
+
+void dijkstra(int src) {
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    pq.push({0, src});
+    dis[src] = 0;
+
+    while (!pq.empty()) {
+        int node = pq.top().second;
+        int cost = pq.top().first;
+        pq.pop();
+
+        if (cost > dis[node]) {
+            continue;
+        }
+
+        for (pair<int, int> child : v[node]) {
+            int childNode = child.first;
+            int childCost = child.second;
+
+            if (cost + childCost < dis[childNode]) {
+                dis[childNode] = cost + childCost;
+                pq.push({dis[childNode], childNode});
+            }
+        }
+    }
+}
+
+int main() {
+    int n, e;
+    cin >> n >> e;
+    while (e--) {
+        int a, b, c;
+        cin >> a >> b >> c;
+        v[a].push_back({b, c});
+        v[b].push_back({a, c});
+    }
+
+    for (int i = 1; i <= n; i++) {
+        dis[i] = INT_MAX;
+    }
+
+    int src;
+    cin >> src;
+    dijkstra(src);
+
+    int t;
+    cin >> t;
+    for (int i = 1; i <= t; i++) {
+        int x, y;
+        cin >> x >> y;
+        if (dis[x] <= y) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
+    }
+
+    return 0;
+}
